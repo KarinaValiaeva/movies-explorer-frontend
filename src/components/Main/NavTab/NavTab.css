@@ -1,0 +1,28 @@
+.navtab {
+    display: flex;
+    width: calc(100% - (2 * 17px));
+    margin: 0 auto;
+    justify-content: space-between;
+    padding-bottom: 17px;
+}
+
+.navtab__link {
+    font-size: 10px;
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    width: 82px;
+    padding: 5px;
+    background-color: #E8E8E8;
+    border-radius: 6px;
+    border: none;
+}
+
+@media screen and (min-width: 768px) {
+    .navtab {
+        width: calc(100% - (2 * 210px));
+    }
+    .navtab__link {
+        width: 96px;
+        padding: 10px;
+        font-size: 12px;
+    }
+}
