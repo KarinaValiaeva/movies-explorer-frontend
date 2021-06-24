@@ -4,17 +4,17 @@ import Footer from "../Footer/Footer";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
-function Movies(props) {
+function SavedMovies(props) {
   return (
     <>
       <Header loggedIn={props.loggedIn} handleMenu={props.onClickMenu} />
-      <main className="movies">
+      <main className="saved-movies">
         <SearchForm />
-        <MoviesCardList isSaved={false} />
+        <MoviesCardList isSaved={true} />
       </main>
       <Footer />
     </>
   );
 }
 
-export default Movies;
+export default SavedMovies;

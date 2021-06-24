@@ -1,68 +1,153 @@
-@font-face {
-    font-family: 'Inter';
-    src: url(../../vendor/fonts/Inter-Medium.woff) format('woff');
-}
-
 .header {
-    background-color: #fff;
+  background-color: #fafafa;
 }
 
 .header__container {
-    display: flex;
-    margin: auto;
-    padding: 18px 0;
-    width: calc(100% - (2 * 14px));
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  margin: auto;
+  padding: 18px 0;
+  width: calc(100% - (2 * 14px));
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__navbar {
+  display: none;
+}
+
+.header__logo {
+  cursor: pointer;
+  transition: opacity 1s ease;
+}
+.header__logo:hover {
+  opacity: 0.6;
 }
 
 .header__sign {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 14px;
-    align-items: center;
-    
+  display: grid;
+  grid-template-columns: 1fr 54px;
+  column-gap: 14px;
+  align-items: center;
 }
 
 .header__link {
-    font-size: 10px;
-    line-height: calc(16/10);
-    text-decoration: none;
-    font-family: 'Inter', Arial, Helvetica, sans-serif;
-    text-align: center;
-    color: #000;
-    
+  font-size: 10px;
+
+  line-height: calc(16 / 10);
+  text-decoration: none;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  text-align: center;
+  color: #000;
 }
 
 .header__link_login {
-    padding: 8px;
-    border-radius: 3px;
-    background-color: #2A76AD;
-    color: #fff;
-    font-family: 'Inter', Arial, Helvetica, sans-serif;
-    text-align: center;
+  padding: 5px;
+  border-radius: 3px;
+  background-color: #2a76ad;
+  color: #fff;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+.header__nav-icon {
+  display: block;
+  position: relative;
+  transition-duration: 1s;
+  margin: 19px 32px 12px auto;
+  cursor: pointer;
+  transition: opacity 1s ease;
+  align-self: end;
+}
+
+.header__nav-icon:hover {
+  opacity: 0.6;
+}
+
+.header__nav-icon-item {
+  height: 3px;
+  width: 22px;
+  background-color: #000;
+  border-radius: 3px;
+  position: absolute;
+  transition-duration: 0.25s;
+  transition-delay: 0.25s;
+}
+
+.header__nav-icon-item:before {
+  left: 0;
+  position: absolute;
+  top: -9px;
+  height: 3px;
+  width: 22px;
+  background-color: #000;
+  content: "";
+  border-radius: 3px;
+  transition-duration: 0.25s;
+  transition: transform 0.25s, top 0.25s 0.25s;
+}
+.header__nav-icon-item:after {
+  left: 0;
+  position: absolute;
+  top: 9px;
+  height: 3px;
+  width: 22px;
+  background-color: #000;
+  content: "";
+  border-radius: 3px;
+  transition-duration: 0.25s;
+  transition: transform 0.25s, top 0.25s 0.25s;
+}
+
+.header__nav-icon-item_open {
+  transition-duration: 0.1s;
+  transition-delay: 0.25s;
+  background: transparent;
+}
+
+.header__nav-icon-item_open:before {
+  transition: top 0.25s, transform 0.25s 0.25s;
+  top: 0px;
+  transform: rotateZ(-45deg);
+}
+.header__nav-icon-item_open:after {
+  transition: top 0.4s, transform 0.25s 0.25s;
+  top: 0px;
+  transform: rotateZ(45deg);
 }
 
 @media screen and (min-width: 768px) {
-    .header__container {
-        width: calc(100% - (2 * 30px));
-    }
-    .header__sign {
-        column-gap: 30px;
-    }
-    .header__link {
-        font-size: 12px;
-    line-height: calc(16/12);
-    }
+  .header__container {
+    width: calc(100% - (2 * 30px));
+  }
+  .header__sign {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 30px;
+  }
+  .header__link {
+    font-size: 12px;
+    line-height: calc(16 / 12);
+  }
+  .header__link_login {
+    padding: 8px;
+  }
 }
 
 @media screen and (min-width: 1280px) {
-    .header {
-        background-color: rgba(250, 250, 250, 0.63);
-    }
-    .header__container {
-        width: calc(100% - (2 * 70px));
-    }
+  .header {
+    background-color: rgba(250, 250, 250, 0.63);
+  }
+  .header__container {
+    width: calc(100% - (2 * 70px));
+  }
 
-    
+  .header__nav-icon {
+    display: none;
+  }
+
+  .header__navbar {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    align-items: center;
+    column-gap: 50px;
+  }
 }

@@ -1,13 +1,14 @@
-import React from "react";
 import "./NavTab.css";
 
 function NavTab() {
   return (
     <nav className="navtab">
-      {/* посмотреть предыдущие проекты, попробовать сделать списком */}
-      <button className="navtab__link">О Проекте</button>
-      <button className="navtab__link">Технологии</button>
-      <button className="navtab__link">Студент</button>
+      <ul className="navtab__list">
+    
+     <li className="navtab__list-item"> <a className="navtab__link" href="#about-project">О проекте</a></li>
+     <li className="navtab__list-item"> <a className="navtab__link" href="#techs">Технологии</a></li>
+     <li className="navtab__list-item"> <a className="navtab__link" href="#portfolio">Студент</a></li>
+      </ul>
     </nav>
   );
 }
