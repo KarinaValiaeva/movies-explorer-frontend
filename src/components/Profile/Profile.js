@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { Link } from "react-router-dom";
 import "./Profile.css";
 
 import Header from "../Header/Header";
 
 function Profile(props) {
+  const currentUser = useContext(CurrentUserContext);
   const [userData, setUserData] = useState({
-    name: "Виталий",
-    email: "pochta@yandex.ru",
+    name: currentUser.name,
+    email: currentUser.email
   });
 
   function handleChange(e) {
@@ -17,13 +19,18 @@ function Profile(props) {
     });
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.onSubmit(userData);
+  }
+
   return (
     <>
       <Header loggedIn={props.loggedIn} handleMenu={props.onClickMenu} />
       <section className="profile page__profile">
         <div className="profile__container">
-          <form className="profile__form">
-            <h2 className="profile__title">Привет, {userData.name}</h2>
+          <form className="profile__form" onSubmit={handleSubmit}>
+            <h2 className="profile__title">Привет, {currentUser.name}</h2>
             <fieldset className="profile__fieldset">
               <label className="profile__form-field">
                 <p className="profile__item-name">Имя</p>
@@ -52,12 +59,12 @@ function Profile(props) {
                 />
               </label>
             </fieldset>
+            <button className="profile__btn" type="submit">Редактировать</button>
           </form>
           <div className="profile__btn-container">
-            <button className="profile__btn">Редактировать</button>
-            <Link to="/signin" className="profile__btn profile__btn_logout">
+            <button className="profile__btn profile__btn_logout" onClick={props.onLogOut}>
               Выйти из аккаунта
-            </Link>
+            </button>
           </div>
         </div>
       </section>
