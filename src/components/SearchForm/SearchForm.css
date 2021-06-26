@@ -37,6 +37,8 @@
 
 .search-form__input:focus {
   outline: none;
+  background-color: #b2cbdd;
+  border-radius: 48px;
 }
 
 .search-form__button-submit {
