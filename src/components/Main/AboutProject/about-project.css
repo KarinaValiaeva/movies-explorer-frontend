@@ -1,0 +1,146 @@
+/* .about-project {
+
+
+} */
+
+.about-project__cards {
+  margin: 0;
+  padding: 60px 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 56px;
+  list-style: none;
+}
+
+.about-project__cards-item {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 16px;
+}
+
+.about-project__subtitle {
+  margin: 0;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: calc(22 / 18);
+  letter-spacing: -0.04em;
+}
+
+.about-project__description {
+  margin: 0;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: calc(16 / 11);
+}
+
+.about-project__time-table {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1.8fr;
+  grid-template-rows: 1fr 1fr;
+  list-style: none;
+}
+
+.about-project__time-table-item {
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
+  padding: 11px;
+  text-align: center;
+}
+
+.about-project__time-table-item_blue {
+  background-color: #2A76AD;
+  color: #fff;
+}
+
+.about-project__time-table-item_grey {
+  background-color: #F2F2F2;
+  color: #000;
+}
+
+.about-project__time-table-item_white {
+  background-color: #FAFAFA;
+  color: #A0A0A0;
+}
+
+@media screen and (min-width: 768px) {
+
+  .about-project__cards {
+    padding-top: 70px;
+    padding-bottom: 93px;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 30px; /* gap: 22px 30px сокращенный вариант */
+    row-gap: 22px;
+    list-style: none;
+  }
+  .about-project__cards-item {
+    row-gap: 22px;
+  }
+  .about-project__subtitle {
+    font-size: 20px;
+    line-height: calc(24.2 / 20);
+  }
+  .about-project__description {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .about-project__time-table {
+    grid-template-columns: 1fr 3.8fr;
+  }
+  .about-project__time-table-item {
+    font-size: 14px;
+  }
+
+}
+
+@media screen and (min-width: 1280px) {
+  .about-project {
+    background-color: #FAFAFA;
+  }
+  .about-project__container {
+    width: calc(100% - (2 * 70px));
+    padding-bottom: 104px;
+  }
+
+  .about-project__title {
+    padding-top: 110px;
+    font-size: 22px;
+    line-height: 26.63px;
+    letter-spacing: -0.04em;
+
+  }
+
+  .about-project__cards-item {
+    row-gap: 27px;
+  }
+
+  .about-project__cards {
+    column-gap: 44px;
+    padding-bottom: 110px;
+  }
+
+  .about-project__description {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .about-project__time-table {
+    grid-template-columns: 1fr 4fr;
+  }
+
+  .about-project__time-table-item {
+    font-size: 14px;
+    padding: 11px;
+  }
+
+  .about-project__time-table-item_white {
+    background-color: #FAFAFA;
+  }
+}
