@@ -7,6 +7,7 @@
 }
 
 .search-form__form {
+  position: relative;
   width: calc(100% - (2 * 14px));
   margin: 0 auto;
   background-color: #fafafa;
@@ -61,6 +62,18 @@
   opacity: 0.6;
 }
 
+.search-form__error {
+  position: absolute;
+  bottom: 0;
+  left: 45%;
+  align-self: center;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 12px;
+  color: #ee3465;
+}
+
 @media screen and (min-width: 768px) {
   .search-form {
     padding-bottom: 91px;
@@ -83,9 +96,6 @@
 }
 
 @media screen and (min-width: 1280px) {
-  .search-form {
-  }
-
   .search-form__form {
     width: calc(100% - (2 * 70px));
     padding-top: 65px;

@@ -1,6 +1,7 @@
 .sign {
   width: calc(100% - (2 * 30px));
   margin: 0 auto;
+  
 }
 
 .sign__header {
@@ -54,6 +55,7 @@
 .form {
   display: grid;
   gap: 20px;
+  position: relative;
 }
 
 .form__field {
@@ -119,6 +121,13 @@
   padding: 15px;
   cursor: pointer;
   transition: opacity 1s ease;
+}
+
+.form__button-submit_disabled {
+  color: #B8B8B8;
+    background-color: #fff;
+    border: 1px solid #B8B8B8;
+    pointer-events: none;
 }
 
 .form__button-submit_login {

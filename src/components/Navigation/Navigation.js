@@ -1,17 +1,15 @@
-import { Link } from "react-router-dom";
-
+import { Link, useLocation } from "react-router-dom";
 import "./Navigation.css";
 
 function Navigation(props) {
+  const location = useLocation();
+
   return (
     <div
       className={`navigation ${props.isOpenMenu && "navigation_opened"}`}
       onClick={props.onClose}
     >
-      <div
-        className="navigation__container"
-        // onClick={(e) => e.stopPropagation()}
-      >
+      <div className="navigation__container">
         <button
           className="navigation__button-close"
           type="button"
@@ -20,20 +18,33 @@ function Navigation(props) {
 
         <ul className="navigation__list">
           <li>
-            <Link className="navigation__link" to="/">
+            <Link
+              className={`navigation__link ${
+                location.pathname === "/" && "navigation__link_checked"
+              }`}
+              to="/"
+            >
               Главная
             </Link>
           </li>
           <li>
             <Link
-              className="navigation__link navigation__link_checked"
+              className={`navigation__link ${
+                location.pathname === "/movies" && "navigation__link_checked"
+              }`}
               to="/movies"
             >
               Фильмы
             </Link>
           </li>
           <li>
-            <Link className="navigation__link" to="/saved-movies">
+            <Link
+              className={`navigation__link ${
+                location.pathname === "/saved-movies" &&
+                "navigation__link_checked"
+              }`}
+              to="/saved-movies"
+            >
               Сохранённые фильмы
             </Link>
           </li>
