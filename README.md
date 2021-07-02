@@ -2,10 +2,14 @@
 
 Frontend для сервиса, в котором можно найти фильмы по запросу и сохранить в личном кабинете.
 
+## Адрес
+
+(https://movies-explorer.nomoredomains.monster)
+
 ## Макет
 
-[ссылка на макет] (https://disk.yandex.ru/d/nSRIOuSLeyBg-w)
+ (https://disk.yandex.ru/d/nSRIOuSLeyBg-w)
 
-## Домен
+## Backend
 
-[ссылка на макет] (https://movies-explorer.nomoredomains.monster)
+(https://movies-explorer.nomoredomains.monster)
