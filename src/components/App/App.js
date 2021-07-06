@@ -20,7 +20,7 @@ import Login from "../Login/Login";
 import NotFoundPage from "../NotFoundPage/NotFoundPage";
 import * as mainApi from "../../utils/MainApi";
 import * as moviesApi from "../../utils/MoviesApi";
-const BASE_URL = "https://api.nomoreparties.co";
+import {BASE_URL, durationShortMovie} from "../../utils/config";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({
@@ -38,7 +38,6 @@ function App() {
   const [isVisibleBlock, setIsVisibleBlock] = useState(false);
   const history = useHistory();
   const locationPath = useLocation();
-  const durationShortMovie = 40;
 
   useEffect(() => {
     tokenCheck();
@@ -227,8 +226,8 @@ function App() {
     const movies = JSON.parse(localStorage.getItem("movies"));
     const results = movies.filter((movie) => {
       return JSON.stringify(movie.nameRU || movie.nameEN)
-        .toLowerCase()
-        .includes(inputValue);
+      .toLowerCase()
+        .includes(inputValue.toLowerCase());
     });
     showNoFoundBlock(results);
     setResultAllMovies(results);
@@ -262,7 +261,7 @@ function App() {
   const handleSearchUserMovie = (inputValue) => {
     const movies = JSON.parse(localStorage.getItem("userMovies"));
     const results = movies.filter((movie) => {
-      return JSON.stringify(movie).toLowerCase().includes(inputValue);
+      return JSON.stringify(movie).toLowerCase().includes(inputValue.toLowerCase());
     });
     setUserMovies(results);
     showNoFoundBlock(results);

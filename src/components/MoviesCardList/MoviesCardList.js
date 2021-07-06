@@ -1,19 +1,21 @@
 import { useState, useEffect } from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
+import {
+  moviesCountMobile,
+  moviesCountTablet,
+  moviesCountDesktop,
+  moviesCountMore,
+  moviesCountMoreDesktop,
+  windowWidthDesktop,
+  windowWidthTablet,
+  windowWidthMobile,
+} from "../../utils/config";
 
 function MoviesCardList(props) {
   const [moviesCount, setMoviesCount] = useState(0);
   const [moreMoviesCount, setMoreMoviesCount] = useState(0);
   const [width, setWidth] = useState(window.innerWidth);
-  const moviesCountMobile = 5;
-  const moviesCountTablet = 8;
-  const moviesCountDesktop = 12;
-  const moviesCountMore = 2;
-  const moviesCountMoreDesktop = 3;
-  const windowWidthDesktop = 1280;
-  const windowWidthTablet = 768;
-  const windowWidthMobile = 320;
 
   const getMoreMovies = () => {
     setMoviesCount(moviesCount + moreMoviesCount);

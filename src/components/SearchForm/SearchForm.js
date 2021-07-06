@@ -7,7 +7,6 @@ function SearchForm(props) {
   function handleSubmit(e) {
     e.preventDefault();
     props.searchFunction(formData.values.film);
-    formData.resetForm();
   }
 
   return (
