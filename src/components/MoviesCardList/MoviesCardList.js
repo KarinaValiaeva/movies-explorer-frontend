@@ -6,6 +6,14 @@ function MoviesCardList(props) {
   const [moviesCount, setMoviesCount] = useState(0);
   const [moreMoviesCount, setMoreMoviesCount] = useState(0);
   const [width, setWidth] = useState(window.innerWidth);
+  const moviesCountMobile = 5;
+  const moviesCountTablet = 8;
+  const moviesCountDesktop = 12;
+  const moviesCountMore = 2;
+  const moviesCountMoreDesktop = 3;
+  const windowWidthDesktop = 1280;
+  const windowWidthTablet = 768;
+  const windowWidthMobile = 320;
 
   const getMoreMovies = () => {
     setMoviesCount(moviesCount + moreMoviesCount);
@@ -21,16 +29,16 @@ function MoviesCardList(props) {
 
   useEffect(() => {
     if (props.isAllMovies) {
-      if (width >= 1280) {
-        setMoviesCount(12);
-        setMoreMoviesCount(3);
+      if (width >= windowWidthDesktop) {
+        setMoviesCount(moviesCountDesktop);
+        setMoreMoviesCount(moviesCountMoreDesktop);
       }
-      if (width < 1280 && width >= 768) {
-        setMoviesCount(8);
-        setMoreMoviesCount(2);
-      } else if (width >= 320 && width < 768) {
-        setMoviesCount(5);
-        setMoreMoviesCount(2);
+      if (width < windowWidthDesktop && width >= windowWidthTablet) {
+        setMoviesCount(moviesCountTablet);
+        setMoreMoviesCount(moviesCountMore);
+      } else if (width >= windowWidthMobile && width < windowWidthTablet) {
+        setMoviesCount(moviesCountMobile);
+        setMoreMoviesCount(moviesCountMore);
       }
     } else {
       setMoviesCount(props.dataMovies.length + 1);

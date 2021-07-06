@@ -1,6 +1,11 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import { Route, Switch, useHistory } from "react-router-dom";
+import {
+  Route,
+  Switch,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import Main from "../Main/Main";
@@ -32,6 +37,8 @@ function App() {
   const [isChecked, setIsChecked] = useState(false);
   const [isVisibleBlock, setIsVisibleBlock] = useState(false);
   const history = useHistory();
+  const locationPath = useLocation();
+  const durationShortMovie = 40;
 
   useEffect(() => {
     tokenCheck();
@@ -40,20 +47,29 @@ function App() {
   useEffect(() => {
     if (isLoggedIn) {
       setIsloading(true);
-
       Promise.all([mainApi.getUserInfo(), mainApi.getUserMovies()])
         .then(([userData, userMoviesData]) => {
           setCurrentUser(userData);
           localStorage.setItem("userMovies", JSON.stringify(userMoviesData));
+          setUserMovies(userMoviesData);
           setUserMovies(JSON.parse(localStorage.getItem("userMovies")));
           setIsVisibleBlock(false);
         })
-        .catch((err) => console.log(err))
+        .catch(() => history.push("/"))
+
         .finally(() => setIsloading(false));
+    } else {
+      history.push("/");
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, history]);
 
   useEffect(() => {
+    if (localStorage.getItem("resultMovies")) {
+      setResultAllMovies(JSON.parse(localStorage.getItem("resultMovies")));
+    } else {
+      getApiMovies();
+    }
+
     if (localStorage.getItem("userMovies")) {
       setUserMovies(JSON.parse(localStorage.getItem("userMovies")));
     } else {
@@ -76,6 +92,7 @@ function App() {
         .then((data) => {
           if (data.email) {
             setIsLoggedIn(true);
+            history.push(locationPath.pathname);
           }
         })
         .catch((res) => {
@@ -84,11 +101,8 @@ function App() {
           if (res.status === 401) console.log("Переданный токен некорректен");
         });
     }
+    history.push("/");
   };
-
-  useEffect(() => {
-    localStorage.setItem("userMovies", JSON.stringify(userMovies));
-  }, [userMovies]);
 
   function handleClickMenu() {
     setIsOpenMenu(true);
@@ -170,10 +184,9 @@ function App() {
 
   const handleLogOut = () => {
     setIsLoggedIn(false);
-    localStorage.removeItem("jwt");
-    localStorage.removeItem("movies");
-    localStorage.removeItem("userMovies");
-    localStorage.removeItem("resultMovies");
+    localStorage.clear();
+    setResultAllMovies([]);
+    setUserMovies([]);
     history.push("/signin");
   };
 
@@ -209,8 +222,8 @@ function App() {
 
   // функция поиска фильмов
   const handleSearchMovie = (inputValue) => {
-    setIsVisibleBlock(false);
     getApiMovies();
+    setIsVisibleBlock(false);
     const movies = JSON.parse(localStorage.getItem("movies"));
     const results = movies.filter((movie) => {
       return JSON.stringify(movie.nameRU || movie.nameEN)
@@ -236,7 +249,7 @@ function App() {
     if (!isChecked) {
       setIsChecked(!isChecked);
       const shortMovies = resultAllMovies.filter((movie) => {
-        return movie.duration < 40;
+        return movie.duration < durationShortMovie;
       });
       setResultAllMovies(shortMovies);
     } else {
@@ -247,38 +260,41 @@ function App() {
 
   // функция поиска фильмов из сохраненных
   const handleSearchUserMovie = (inputValue) => {
-    const results = userMovies.filter((movie) => {
+    const movies = JSON.parse(localStorage.getItem("userMovies"));
+    const results = movies.filter((movie) => {
       return JSON.stringify(movie).toLowerCase().includes(inputValue);
     });
     setUserMovies(results);
     showNoFoundBlock(results);
   };
 
-  // функция нажатия на иконку сохранения фильма
-  const handleClickMovie = (movie) => {
-    if (!isSavedMovie(movie)) {
-      handleSaveMovie(movie);
-    } else {
-      const checkedMovie = userMovies.filter(
-        (item) => item.movieId === movie.movieId
-      )[0];
-      handleRemoveMovie(checkedMovie);
-    }
-  };
-
   // функция для распознования сохраненнёх фильмов
   const isSavedMovie = (movie) =>
     userMovies.some((item) => item.movieId === movie.movieId);
 
+  // функция нажатия на иконку сохранения фильма
+  const handleClickMovie = (movie) => {
+    const movies = JSON.parse(localStorage.getItem("userMovies"));
+    const checkedMovie = movies.filter(
+      (item) => item.movieId === movie.movieId
+    )[0];
+    if (!isSavedMovie(movie)) {
+      handleSaveMovie(movie);
+    } else {
+      handleRemoveMovie(checkedMovie);
+    }
+  };
+
   // функция сохранения фильмов
+
   const handleSaveMovie = (item) => {
-    const moviesUser = JSON.parse(localStorage.getItem("userMovies"));
     mainApi
       .saveMovie(item)
       .then((movie) => {
+        const moviesUser = JSON.parse(localStorage.getItem("userMovies"));
         const newArr = [...moviesUser, { ...movie, id: movie.movieId }];
         localStorage.setItem("userMovies", JSON.stringify(newArr));
-        setUserMovies([movie, ...userMovies]);
+        setUserMovies(newArr);
       })
       .catch(() => {
         setIsOpenPopup(true);
@@ -312,8 +328,9 @@ function App() {
   const handleFilterShortUserMovie = () => {
     if (!isChecked) {
       setIsChecked(!isChecked);
-      const shortMovies = userMovies.filter((movie) => {
-        return movie.duration < 40;
+      const movies = JSON.parse(localStorage.getItem("userMovies"));
+      const shortMovies = movies.filter((movie) => {
+        return movie.duration < durationShortMovie;
       });
       setUserMovies(shortMovies);
     } else {
@@ -326,7 +343,6 @@ function App() {
   // функция удаления фильма
   const handleRemoveMovie = (film) => {
     const movies = JSON.parse(localStorage.getItem("userMovies"));
-
     const movie = movies.find(
       (item) => item.id === film.id || item.id === film.movieId
     );
@@ -391,14 +407,12 @@ function App() {
             onSubmit={handleUpdateUserProfile}
             isLoading={isLoading}
           />
-
           <Route path="/signup">
             <Register onRegister={handleRegister} isLoading={isLoading} />
           </Route>
           <Route path="/signin">
             <Login onLogin={handleLogin} isLoading={isLoading} />
           </Route>
-
           <Route path="*">
             <NotFoundPage />
           </Route>

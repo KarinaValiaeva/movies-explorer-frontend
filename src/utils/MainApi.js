@@ -53,8 +53,7 @@ export const getToken = (token) => {
   }).then(checkResponse);
 };
 
-export const saveMovie = (data) => {
-
+export const saveMovie = (movie) => {
   return fetch(`${BASE_URL}/movies`, {
     method: "POST",
     headers: {
@@ -62,7 +61,19 @@ export const saveMovie = (data) => {
       "Content-Type": "application/json",
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      country: movie.country || "Нет данных",
+      director: movie.director || "Нет данных",
+      duration: movie.duration || "Нет данных",
+      year: movie.year || "Нет данных",
+      description: movie.description || "Нет данных",
+      image: movie.image || "Нет данных",
+      trailer: movie.trailer || "Нет данных",
+      thumbnail: movie.thumbnail || "Нет данных",
+      nameRU: movie.nameRU || "Нет данных",
+      nameEN: movie.nameEN || "Нет данных",
+      movieId: movie.movieId || "Нет данных",
+    }),
   }).then(checkResponse);
 };
 
