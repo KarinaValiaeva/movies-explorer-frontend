@@ -1,20 +1,25 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import useFormWithValidation from "../../hooks/useFormWithValidation";
 import "./Profile.css";
 
 import Header from "../Header/Header";
 
 function Profile(props) {
-  const [userData, setUserData] = useState({
-    name: "Виталий",
-    email: "pochta@yandex.ru",
-  });
-
-  function handleChange(e) {
-    setUserData({
-      ...userData,
-      [e.target.name]: e.target.value,
+  const formData = useFormWithValidation();
+  const currentUser = useContext(CurrentUserContext);
+  
+  useEffect(() => {
+    formData.setValues({
+      name: currentUser.name,
+      email: currentUser.email,
     });
+    formData.isValid = false;
+  }, [currentUser, formData.setValues]);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.onSubmit(formData.values);
   }
 
   return (
@@ -22,8 +27,8 @@ function Profile(props) {
       <Header loggedIn={props.loggedIn} handleMenu={props.onClickMenu} />
       <section className="profile page__profile">
         <div className="profile__container">
-          <form className="profile__form">
-            <h2 className="profile__title">Привет, {userData.name}</h2>
+          <form className="profile__form" onSubmit={handleSubmit}>
+            <h2 className="profile__title">Привет, {currentUser.name}</h2>
             <fieldset className="profile__fieldset">
               <label className="profile__form-field">
                 <p className="profile__item-name">Имя</p>
@@ -35,9 +40,12 @@ function Profile(props) {
                   minLength="2"
                   maxLength="40"
                   autoComplete="off"
-                  value={userData.name}
-                  onChange={handleChange}
+                  value={formData.values.name || ""}
+                  onChange={formData.handleChange}
                 />
+                <span className="profile__error" id="name-input-error">
+                  {formData.errors.name || ""}
+                </span>
               </label>
               <label className="profile__form-field">
                 <p className="profile__item-name">Почта</p>
@@ -47,17 +55,33 @@ function Profile(props) {
                   type="email"
                   autoComplete="off"
                   required
-                  value={userData.email}
-                  onChange={handleChange}
+                  pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
+                  value={formData.values.email || ""}
+                  onChange={formData.handleChange}
                 />
+                <span className="profile__error" id="email-input-error">
+                  {formData.errors.email || ""}
+                </span>
               </label>
             </fieldset>
+            <button
+              className={
+                formData.isValid
+                  ? "profile__btn"
+                  : "profile__btn profile__btn_disabled"
+              }
+              type="submit"
+            >
+              Редактировать
+            </button>
           </form>
           <div className="profile__btn-container">
-            <button className="profile__btn">Редактировать</button>
-            <Link to="/signin" className="profile__btn profile__btn_logout">
+            <button
+              className="profile__btn-logout"
+              onClick={props.onLogOut}
+            >
               Выйти из аккаунта
-            </Link>
+            </button>
           </div>
         </div>
       </section>
