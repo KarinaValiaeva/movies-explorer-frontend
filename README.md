@@ -1,15 +1,30 @@
-# **movies-explorer-frontend**
+![Альтернативный текст](src/images/logo.png)
+# **Movies explorer (front-end)**
 
-Frontend для сервиса, в котором можно найти фильмы по запросу и сохранить в личном кабинете.
+Front-end для сервиса поиска документальных фильмов по ключевым словам и длительности. Пользователю предлагается пройти регистрацию, после у него появляется возможность вопользоваться поиском фильмов и сохранением понравившихся. 
 
-## Адрес
+### Технологический стек
+
+- ReactJS, React Hooks, React Router, REST API.
+- Адаптивная вёрстка для просмотра на расширениях от 320px 1280px, с использованием Flexbox, Grid Layout.
+- БЭМ.
+
+### Установка необходимого ПО
+
+```npm install```
+
+### Запуск проекта
+
+```npm start```
+
+### Адрес
 
 (https://movies-explorer.nomoredomains.monster)
 
-## Макет
+### Макет
 
  (https://disk.yandex.ru/d/nSRIOuSLeyBg-w)
 
-## Backend
+### Backend
 
 (https://movies-explorer.nomoredomains.monster)
