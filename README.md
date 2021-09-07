@@ -1,7 +1,7 @@
-![Альтернативный текст](src/images/logo.png)
+[![Дого проекта](src/images/logo.png)](https://movies-explorer.nomoredomains.monster)
 # **Movies explorer (front-end)**
 
-Front-end для сервиса поиска документальных фильмов по ключевым словам и длительности. Пользователю предлагается пройти регистрацию, после у него появляется возможность вопользоваться поиском фильмов и сохранением понравившихся. 
+Front-end для сервиса поиска документальных фильмов по ключевым словам и длительности. Пользователю предлагается пройти регистрацию, после у него появляется возможность вопользоваться поиском фильмов и сохранением понравившихся, а также изменять информация о себе в личном кабинете.
 
 ### Технологический стек
 
@@ -19,12 +19,12 @@ Front-end для сервиса поиска документальных фил
 
 ### Адрес
 
-(https://movies-explorer.nomoredomains.monster)
+https://movies-explorer.nomoredomains.monster
 
 ### Макет
 
- (https://disk.yandex.ru/d/nSRIOuSLeyBg-w)
+ https://disk.yandex.ru/d/nSRIOuSLeyBg-w
 
 ### Backend
 
-(https://movies-explorer.nomoredomains.monster)
+https://movies-explorer.nomoredomains.monster
